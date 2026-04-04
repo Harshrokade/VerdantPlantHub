@@ -1,0 +1,229 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.formCard {
+  background: var(--white);
+  border: 1.5px solid var(--parrot-green-300);
+  border-radius: var(--radius-xl);
+  padding: 1.8rem 2rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-sm);
+  animation: formSlideIn 0.25s ease;
+}
+
+@keyframes formSlideIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.formTitle {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--dark-green-800);
+  margin-bottom: 1.4rem;
+}
+
+.formGroup {
+  margin-bottom: 1.2rem;
+}
+
+.label {
+  display: block;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.input, .select, .textarea {
+  width: 100%;
+  border: 1.5px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  font-family: var(--font-body);
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+  outline: none;
+  transition: border-color var(--transition-fast);
+}
+
+.input:focus, .select:focus, .textarea:focus {
+  border-color: var(--parrot-green-600);
+  background: var(--white);
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.65;
+}
+
+.select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b8f78' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+}
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 1.4rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--border-light);
+}
+
+/* Empty state */
+.empty {
+  text-align: center;
+  padding: 5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.emptyIcon {
+  font-size: 4rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.empty h3 {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--dark-green-800);
+}
+
+.empty p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  max-width: 380px;
+  line-height: 1.65;
+}
+
+/* Notes list */
+.notesList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.noteCard {
+  background: var(--white);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 1.3rem 1.5rem;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.noteCard:hover {
+  border-color: var(--parrot-green-200);
+  box-shadow: var(--shadow-sm);
+}
+
+.noteHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.noteMeta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.plantPill {
+  font-size: 0.75rem;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  background: var(--dark-green-800);
+  color: var(--parrot-green-300);
+  font-weight: 500;
+}
+
+.noteDate {
+  font-size: 0.75rem;
+  color: var(--text-light);
+}
+
+.noteActions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.actionBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px 7px;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  transition: background var(--transition-fast);
+  opacity: 0.5;
+}
+
+.actionBtn:hover { background: var(--cream); opacity: 1; }
+
+.confirmDelete {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.confirmYes {
+  background: #fee2e2;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 3px 10px;
+  font-size: 0.75rem;
+  color: #991b1b;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-weight: 500;
+}
+
+.confirmNo {
+  background: var(--cream);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 3px 10px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-family: var(--font-body);
+}
+
+.noteTitle {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: var(--dark-green-800);
+  margin-bottom: 6px;
+}
+
+.noteContent {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.72;
+  white-space: pre-wrap;
+}

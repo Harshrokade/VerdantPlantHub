@@ -1,0 +1,360 @@
+.headerArea {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.iconWrap {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.inputCard {
+  background: var(--white);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.inputLabel {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--dark-green-800);
+  margin-bottom: 0.75rem;
+}
+
+.inputWrap {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.input {
+  flex: 1;
+  border: 1.5px solid var(--border-medium);
+  border-radius: var(--radius-full);
+  padding: 11px 18px;
+  font-size: 0.9rem;
+  outline: none;
+  font-family: var(--font-body);
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+  transition: border-color var(--transition-fast);
+}
+
+.input:focus {
+  border-color: var(--parrot-green-600);
+  background: var(--white);
+}
+
+.input::placeholder { color: var(--text-light); }
+
+.addBtn {
+  background: var(--dark-green-800);
+  color: var(--parrot-green-300);
+  border: none;
+  border-radius: var(--radius-full);
+  padding: 11px 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.addBtn:hover:not(:disabled) {
+  background: var(--parrot-green-600);
+  color: white;
+}
+
+.addBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 1.2rem;
+  align-items: center;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--dark-green-800);
+  color: var(--parrot-green-300);
+  border-radius: var(--radius-full);
+  padding: 5px 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.chip button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--parrot-green-400);
+  font-size: 0.7rem;
+  padding: 0;
+  line-height: 1;
+  transition: color var(--transition-fast);
+}
+
+.chip button:hover { color: white; }
+
+.clearAll {
+  background: none;
+  border: 1.5px solid var(--border-medium);
+  border-radius: var(--radius-full);
+  padding: 4px 12px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: all var(--transition-fast);
+}
+
+.clearAll:hover {
+  border-color: var(--parrot-green-600);
+  color: var(--dark-green-800);
+}
+
+.commonWrap {
+  border-top: 1px solid var(--border-light);
+  padding-top: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+.commonLabel {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-light);
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.commonList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.commonBtn {
+  background: var(--cream);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-full);
+  padding: 5px 12px;
+  font-size: 0.78rem;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  transition: all var(--transition-fast);
+  text-transform: capitalize;
+}
+
+.commonBtn:hover {
+  background: var(--parrot-green-50);
+  border-color: var(--parrot-green-300);
+  color: var(--dark-green-800);
+}
+
+.commonSelected {
+  background: var(--parrot-green-50);
+  border-color: var(--parrot-green-600);
+  color: var(--dark-green-800);
+  font-weight: 500;
+}
+
+.searchBtn {
+  width: 100%;
+  background: var(--dark-green-800);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius-full);
+  padding: 13px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: all var(--transition-normal);
+}
+
+.searchBtn:hover:not(:disabled) {
+  background: var(--parrot-green-600);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.searchBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Results */
+.results { animation: pageFadeIn 0.3s ease; }
+
+@keyframes pageFadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.noResults {
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+}
+
+.noResults span { font-size: 3rem; }
+
+.resultSection { margin-bottom: 2rem; }
+
+.resultTitle {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--dark-green-800);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.resultCount {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  background: var(--parrot-green-50);
+  color: var(--dark-green-600);
+  border: 1px solid var(--parrot-green-100);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-weight: 400;
+}
+
+.plantList, .remedyList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.plantRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--white);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.3rem;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-body);
+  transition: all var(--transition-normal);
+  width: 100%;
+}
+
+.plantRow:hover {
+  border-color: var(--parrot-green-300);
+  background: var(--parrot-green-50);
+  transform: translateX(4px);
+}
+
+.plantEmoji { font-size: 2rem; flex-shrink: 0; }
+
+.plantInfo { flex: 1; }
+
+.plantName {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--dark-green-800);
+  margin-bottom: 2px;
+}
+
+.plantSci {
+  font-style: italic;
+  font-size: 0.78rem;
+  color: var(--text-light);
+  margin-bottom: 5px;
+}
+
+.matchedSymptoms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.matchChip {
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  background: var(--parrot-green-50);
+  color: var(--dark-green-600);
+  border: 1px solid var(--parrot-green-100);
+  text-transform: capitalize;
+}
+
+.matchScore {
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.scoreNum {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--parrot-green-600);
+  font-weight: 600;
+  line-height: 1;
+}
+
+.scoreLabel {
+  font-size: 0.68rem;
+  color: var(--text-light);
+}
+
+.arrow {
+  color: var(--text-light);
+  font-size: 1rem;
+  flex-shrink: 0;
+  transition: transform var(--transition-fast);
+}
+
+.plantRow:hover .arrow { transform: translateX(3px); color: var(--parrot-green-600); }
+
+.remedyRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--white);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.3rem;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-body);
+  transition: all var(--transition-normal);
+  width: 100%;
+}
+
+.remedyRow:hover {
+  border-color: var(--parrot-green-300);
+  background: var(--parrot-green-50);
+}
+
+.remedyIcon { font-size: 1.8rem; }
+.remedyInfo { flex: 1; }
+.remedyName { font-size: 0.95rem; font-weight: 500; color: var(--dark-green-800); }
+.remedyAilment { font-size: 0.78rem; color: var(--text-muted); }
+
+.viewBtn {
+  font-size: 0.78rem;
+  color: var(--parrot-green-600);
+  font-weight: 500;
+}
