@@ -1,87 +1,80 @@
-const Plant = require('../models/Plant');
+const Plant = require('../models/Plant'); // MongoDB Atlas Model
+const { mysqlPool } = require('../config/db'); // MySQL Pool exported from db.js
 
-// @desc    Get all plants (with optional filters)
-// @route   GET /api/plants
-// @access  Public
-const getPlants = async (req, res, next) => {
+exports.getPlants = async (req, res, next) => {
   try {
-    const { category, search, featured, tag, symptom } = req.query;
-    const filter = {};
+    const { search, category } = req.query;
 
-    if (category && category !== 'All') filter.cat = category;
-    if (featured === 'true') filter.featured = true;
-    if (tag) filter.tags = { $in: [tag] };
-    if (symptom) filter.symptoms = { $regex: symptom, $options: 'i' };
-
+    // --- CASE 1: SEARCHING (Use MySQL) ---
     if (search) {
-      filter.$or = [
-        { name: { $regex: search, $options: 'i' } },
-        { sci: { $regex: search, $options: 'i' } },
-        { desc: { $regex: search, $options: 'i' } },
-        { tags: { $in: [new RegExp(search, 'i')] } },
-        { symptoms: { $in: [new RegExp(search, 'i')] } },
-      ];
+      console.log(`🔎 MySQL Search for: ${search}`);
+      
+      // SQL Aliases used to match the keys required by the Frontend PlantModal
+      const sql = `
+        SELECT 
+          plant_id AS id, 
+          common_name AS name, 
+          scientific_name, 
+          regional_name, 
+          description, 
+          care_guide, 
+          location, 
+          medicinal_benefits, 
+          image_url 
+        FROM plants 
+        WHERE common_name LIKE ? OR scientific_name LIKE ? OR regional_name LIKE ?
+      `;
+      
+      const queryParam = `%${search}%`;
+      const [rows] = await mysqlPool.execute(sql, [queryParam, queryParam, queryParam]);
+      
+      return res.status(200).json({ 
+        success: true, 
+        count: rows.length, 
+        plants: rows 
+      });
     }
 
-    const plants = await Plant.find(filter).sort({ rating: -1, name: 1 });
-    res.status(200).json({ success: true, count: plants.length, plants });
+    // --- CASE 2: CATEGORY FILTER / DEFAULT LOAD (Use MongoDB Atlas) ---
+    const filter = {};
+    if (category && category !== 'All') {
+        filter.cat = category;
+    }
+
+    const plants = await Plant.find(filter).sort({ name: 1 });
+    
+    res.status(200).json({ 
+      success: true, 
+      count: plants.length, 
+      plants 
+    });
+
   } catch (error) {
-    next(error);
+    console.error("Controller Error:", error);
+    res.status(500).json({ success: false, message: "Database fetch failed" });
   }
 };
 
-// @desc    Get single plant by plantId (numeric)
-// @route   GET /api/plants/:id
-// @access  Public
-const getPlant = async (req, res, next) => {
+// Fetch single plant by ID (supports both Atlas and MySQL IDs)
+exports.getPlant = async (req, res, next) => {
   try {
-    const plant = await Plant.findOne({ plantId: Number(req.params.id) });
+    const id = req.params.id;
+
+    // First try finding in MongoDB Atlas
+    let plant = await Plant.findOne({ plantId: Number(id) });
+    
+    // Fallback: If not found, check MySQL
     if (!plant) {
-      return res.status(404).json({ success: false, message: 'Plant not found.' });
+      const [rows] = await mysqlPool.execute("SELECT * FROM plants WHERE plant_id = ?", [id]);
+      plant = rows[0];
     }
+
+    if (!plant) {
+      return res.status(404).json({ success: false, message: 'Plant not found' });
+    }
+
     res.status(200).json({ success: true, plant });
   } catch (error) {
     next(error);
   }
 };
-
-// @desc    Get all unique categories
-// @route   GET /api/plants/categories
-// @access  Public
-const getCategories = async (req, res, next) => {
-  try {
-    const categories = await Plant.distinct('cat');
-    res.status(200).json({ success: true, categories: ['All', ...categories.sort()] });
-  } catch (error) {
-    next(error);
-  }
-};
-
-// @desc    Get plants by symptom
-// @route   GET /api/plants/by-symptom/:symptom
-// @access  Public
-const getBySymptom = async (req, res, next) => {
-  try {
-    const plants = await Plant.find({
-      symptoms: { $regex: req.params.symptom, $options: 'i' },
-    }).sort({ rating: -1 });
-
-    res.status(200).json({ success: true, count: plants.length, plants });
-  } catch (error) {
-    next(error);
-  }
-};
-
-// @desc    Get featured plants
-// @route   GET /api/plants/featured
-// @access  Public
-const getFeatured = async (req, res, next) => {
-  try {
-    const plants = await Plant.find({ featured: true }).sort({ rating: -1 });
-    res.status(200).json({ success: true, count: plants.length, plants });
-  } catch (error) {
-    next(error);
-  }
-};
-
-module.exports = { getPlants, getPlant, getCategories, getBySymptom, getFeatured };

@@ -1,107 +1,155 @@
+/* Layout for the Search Bar and AI Button Row */
+.searchContainer {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  width: 100%;
+}
+
+/* The Search Input Wrapper */
 .searchWrap {
+  flex: 1;
   display: flex;
   align-items: center;
-  gap: 10px;
-  background: var(--white);
-  border: 1.5px solid var(--border-medium);
-  border-radius: var(--radius-full);
+  background: #ffffff;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 50px;
   padding: 0 16px;
-  margin-bottom: 1.2rem;
-  transition: border-color var(--transition-fast);
+  transition: all 0.2s ease;
 }
 
 .searchWrap:focus-within {
-  border-color: var(--parrot-green-600);
+  border-color: #2d6a4f;
+  box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.1);
+}
+
+.searchIcon {
+  font-size: 1.1rem;
+  margin-right: 10px;
+  color: #666;
 }
 
 .searchWrap input {
   flex: 1;
   border: none;
   outline: none;
-  padding: 12px 6px;
-  font-size: 0.9rem;
+  padding: 12px 0;
+  font-size: 0.95rem;
   background: transparent;
-  font-family: var(--font-body);
-  color: var(--text-primary);
+  color: #333;
 }
 
-.searchWrap input::placeholder { color: var(--text-light); }
-
-.searchWrap button {
-  background: none;
+/* X Button inside Search Bar */
+.clearBtn {
+  background: #f0f0f0;
   border: none;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
   cursor: pointer;
-  color: var(--text-light);
-  font-size: 0.85rem;
-  padding: 4px;
-  transition: color var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  color: #888;
+  margin-left: 8px;
 }
 
-.searchWrap button:hover { color: var(--dark-green-800); }
+.clearBtn:hover {
+  background: #e0e0e0;
+  color: #333;
+}
 
+/* The New AI Camera Button */
+.aiButton {
+  background: #1b4332;
+  color: #ffffff;
+  border: none;
+  border-radius: 14px;
+  width: 48px;
+  height: 48px;
+  font-size: 1.3rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, background 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.aiButton:hover {
+  background: #2d6a4f;
+  transform: scale(1.05);
+}
+
+.aiButton:active {
+  transform: scale(0.95);
+}
+
+/* Category Filters Row */
 .filters {
   display: flex;
   flex-wrap: wrap;
-  gap: 7px;
-  margin-bottom: 1.5rem;
+  gap: 8px;
+  margin-bottom: 1.8rem;
 }
 
 .filterPill {
-  background: var(--white);
-  border: 1.5px solid var(--border-light);
-  border-radius: var(--radius-full);
-  padding: 6px 14px;
-  font-size: 0.82rem;
+  background: #fff;
+  border: 1px solid #d8f3dc;
+  border-radius: 50px;
+  padding: 8px 18px;
+  font-size: 0.85rem;
   cursor: pointer;
-  color: var(--text-muted);
-  font-family: var(--font-body);
-  transition: all var(--transition-fast);
+  color: #2d6a4f;
+  transition: all 0.2s ease;
 }
 
 .filterPill:hover {
-  background: var(--parrot-green-50);
-  border-color: var(--parrot-green-300);
-  color: var(--dark-green-800);
+  background: #f0fdf4;
+  border-color: #b7e4c7;
 }
 
 .filterPill.active {
-  background: var(--dark-green-800);
-  border-color: var(--dark-green-800);
-  color: var(--parrot-green-300);
+  background: #1b4332;
+  color: #ffffff;
+  border-color: #1b4332;
   font-weight: 500;
 }
 
+/* Results Count and Grid */
 .resultCount {
-  font-size: 0.83rem;
-  color: var(--text-light);
+  font-size: 0.85rem;
+  color: #666;
   margin-bottom: 1.2rem;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 18px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
 }
 
+/* Empty State Styling */
 .empty {
   text-align: center;
-  padding: 4rem 2rem;
+  padding: 5rem 2rem;
 }
 
 .emptyIcon {
-  font-size: 3.5rem;
-  margin-bottom: 1rem;
+  font-size: 4rem;
+  margin-bottom: 1.2rem;
+  opacity: 0.6;
 }
 
 .empty h3 {
-  font-family: var(--font-display);
-  font-size: 1.3rem;
-  color: var(--dark-green-800);
+  color: #1b4332;
+  font-size: 1.4rem;
   margin-bottom: 0.5rem;
 }
 
 .empty p {
-  color: var(--text-muted);
-  font-size: 0.9rem;
-  margin-bottom: 1.5rem;
+  color: #666;
+  font-size: 0.95rem;
 }

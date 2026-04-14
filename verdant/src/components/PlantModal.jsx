@@ -1,87 +1,72 @@
-import React, { useEffect } from 'react';
-import styles from './PlantModal.module.css';
+import React from 'react';
+import './PlantModal.css';
 
-export default function PlantModal({ plant, isFav, onToggleFav, onClose }) {
-  useEffect(() => {
-    const handleKey = (e) => { if (e.key === 'Escape') onClose(); };
-    document.addEventListener('keydown', handleKey);
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.removeEventListener('keydown', handleKey);
-      document.body.style.overflow = '';
-    };
-  }, [onClose]);
-
+const PlantModal = ({ plant, onClose }) => {
   if (!plant) return null;
 
+  const data = {
+    name: plant.name || plant.common_name,
+    sci: plant.scientific_name || plant.sci, // If this is missing, it shows N/A
+    desc: plant.description || plant.desc,
+    img: plant.image || plant.image_url || plant.img,
+    care: plant.careInfo 
+      ? `Water: ${plant.careInfo.water} | Sun: ${plant.careInfo.sunlight} | Soil: ${plant.careInfo.soil}`
+      : (plant.care_guide || "General care guide provided"),
+    cat: plant.category || plant.cat || "Medicinal",
+    loc: plant.location || "Native Regions",
+    regional: plant.regional_name || "Varies by region",
+  };
+
   return (
-    <div className={styles.overlay} onClick={(e) => e.target === e.currentTarget && onClose()}>
-      <div className={styles.modal}>
-        {/* Hero */}
-        <div className={styles.hero} style={{ background: `linear-gradient(135deg, ${plant.color}88 0%, ${plant.color}44 100%)` }}>
-          <button className={styles.closeBtn} onClick={onClose}>✕</button>
-          <button
-            className={`${styles.favBtnHero} ${isFav ? styles.favActive : ''}`}
-            onClick={() => onToggleFav(plant.id)}
-          >
-            {isFav ? '❤️ Saved' : '🤍 Save'}
-          </button>
-          <div className={styles.heroEmoji}>{plant.emoji}</div>
-          <h2 className={styles.heroName}>{plant.name}</h2>
-          <p className={styles.heroSci}>{plant.sci}</p>
-          <div className={styles.heroTags}>
-            {plant.tags.map(t => (
-              <span key={t} className="tag">{t}</span>
-            ))}
-          </div>
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+        
+        <div className="modal-hero">
+          <button className="close-btn" onClick={onClose}>&times;</button>
+          <img src={data.img} alt={data.name} />
         </div>
 
-        {/* Body */}
-        <div className={styles.body}>
-          <section className={styles.section}>
-            <h4 className={styles.sectionLabel}>About</h4>
-            <p className={styles.sectionText}>{plant.desc}</p>
-          </section>
-
-          <div className={styles.propsGrid}>
-            {[
-              { label: 'Origin', val: plant.origin },
-              { label: 'Part Used', val: plant.part },
-              { label: 'Flavor', val: plant.flavor },
-              { label: 'Category', val: plant.cat },
-            ].map(p => (
-              <div key={p.label} className={styles.propItem}>
-                <span className={styles.propLabel}>{p.label}</span>
-                <span className={styles.propVal}>{p.val}</span>
-              </div>
-            ))}
+        <div className="modal-scroll-body">
+          <div className="modal-header">
+            <h2 className="hero-name">{data.name}</h2>
+            {/* FIX: Only show scientific name if it exists, otherwise show nothing */}
+            {data.sci && <p className="hero-sci">{data.sci}</p>}
           </div>
 
-          <section className={styles.section}>
-            <h4 className={styles.sectionLabel}>Preparation</h4>
-            <p className={styles.sectionText}>{plant.preparation}</p>
-          </section>
-
-          <section className={styles.section}>
-            <h4 className={styles.sectionLabel}>Dosage</h4>
-            <p className={styles.sectionText}>{plant.dosage}</p>
-          </section>
-
-          <div className={styles.rating}>
-            {'★'.repeat(plant.rating)}{'☆'.repeat(5 - plant.rating)}
-            <span className={styles.ratingLabel}>Efficacy rating</span>
+          {/* NEW: Description moved directly after the Name section */}
+          <div className="description-top">
+            <h2 className="label">Description </h2>
+            <p className="section-text">{data.desc}</p>
           </div>
 
-          <div className={styles.cautionBox}>
-            <strong>⚠ Caution &amp; Contraindications</strong>
-            <p>{plant.caution}</p>
+          <div className="info-grid">
+            <div className="grid-card">
+              <span className="label">Regional Name</span>
+              <span className="value">{data.regional}</span>
+            </div>
+            <div className="grid-card">
+              <span className="label">Category</span>
+              <span className="value">{data.cat}</span>
+            </div>
+            <div className="grid-card">
+              <span className="label">Care Information</span>
+              <span className="value">{data.care}</span>
+            </div>
+            <div className="grid-card">
+              <span className="label">Location / Origin</span>
+              <span className="value">{data.loc}</span>
+            </div>
           </div>
 
-          <p className={styles.disclaimer}>
-            This information is for educational purposes only. Always consult a qualified healthcare practitioner before using any medicinal herb.
-          </p>
+          <div className="modal-footer">
+            <p className="disclaimer">
+              * Always consult a professional before using medicinal herbs.
+            </p>
+          </div>
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default PlantModal;

@@ -6,7 +6,7 @@ import Plants from './pages/Plants';
 import Remedies from './pages/Remedies';
 import SymptomFinder from './pages/SymptomFinder';
 import Favorites from './pages/Favorites';
-import Notes from './pages/Notes';
+import VirtualGarden from './pages/VirtualGarden';
 import Glossary from './pages/Glossary';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import { ToastProvider, useToast } from './hooks/useToast';
@@ -73,8 +73,8 @@ function AppInner() {
             onNavigate={navigate}
           />
         );
-      case 'notes':
-        return <Notes />;
+      case 'VirtualGarden':
+        return <VirtualGarden />;
       case 'glossary':
         return <Glossary />;
       default:

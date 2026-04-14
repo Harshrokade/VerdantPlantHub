@@ -1,15 +1,11 @@
 const express = require('express');
-const { getPlants, getPlant, getCategories, getBySymptom, getFeatured } = require('../controllers/plantController');
-
 const router = express.Router();
 
-// These must come BEFORE /:id to avoid route conflicts
-router.get('/categories', getCategories);
-router.get('/featured', getFeatured);
-router.get('/by-symptom/:symptom', getBySymptom);
+// Import the controller
+const plantController = require('../controllers/plantController');
 
-// General routes
-router.get('/', getPlants);
-router.get('/:id', getPlant);
+// Define routes - using the Controller object directly avoids "undefined" errors
+router.get('/', plantController.getPlants);
+router.get('/:id', plantController.getPlant);
 
 module.exports = router;

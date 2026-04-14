@@ -7,7 +7,7 @@ const NAV_ITEMS = [
   { key: 'remedies',  label: 'Remedies',  icon: '🫖' },
   { key: 'symptom',   label: 'Symptom Finder', icon: '🔍' },
   { key: 'favorites', label: 'Favorites', icon: '❤️' },
-  { key: 'notes',     label: 'My Notes',  icon: '📝' },
+  { key: 'VirtualGarden', label: 'Virtual Garden',  icon: '🌱' },
   { key: 'glossary',  label: 'Glossary',  icon: '📖' },
 ];
 

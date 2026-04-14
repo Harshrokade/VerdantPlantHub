@@ -1,42 +1,49 @@
-import React from 'react';
-import styles from './PlantCard.module.css';
+import React, { useState } from 'react';
+import PlantModal from './PlantModal';
+import './PlantCard.css';
 
-export default function PlantCard({ plant, isFav, onToggleFav, onClick }) {
-  const handleFav = (e) => {
-    e.stopPropagation();
-    onToggleFav(plant.id);
-  };
+const PlantCard = ({ plant }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  if (!plant) return null;
+
+  const toggleModal = () => setIsModalOpen(!isModalOpen);
+
+  // Determine the correct image source
+  // Atlas uses 'image', MySQL uses 'image_url', some Atlas fallbacks use 'img'
+  const imageSrc = plant.image || plant.image_url || plant.img;
+  const plantName = plant.name || plant.common_name;
 
   return (
-    <div className={styles.card} onClick={() => onClick(plant)}>
-      <div className={styles.imgArea} style={{ background: plant.color + '55' }}>
-        <span className={styles.emoji}>{plant.emoji}</span>
-        <span className={styles.catBadge}>{plant.cat}</span>
-        <button
-          className={`${styles.favBtn} ${isFav ? styles.favActive : ''}`}
-          onClick={handleFav}
-          title={isFav ? 'Remove from favorites' : 'Add to favorites'}
-        >
-          {isFav ? '❤️' : '🤍'}
-        </button>
+    <>
+      <div className="plant-card" onClick={toggleModal}>
+        <img 
+          src={imageSrc} 
+          alt={plantName} 
+          loading="lazy"
+        />
+        
+        <div className="plant-card-body">
+          <div className="plant-card-info">
+            <h3>{plantName}</h3>
+            <p className="scientific-name">{plant.scientific_name || plant.sci || "Medicinal Plant"}</p>
+          </div>
+          
+          <div className="plant-card-footer">
+            <span>View Details</span>
+            <span className="arrow">➔</span>
+          </div>
+        </div>
       </div>
 
-      <div className={styles.body}>
-        <h3 className={styles.name}>{plant.name}</h3>
-        <p className={styles.sci}>{plant.sci}</p>
-        <div className={styles.tags}>
-          {plant.tags.slice(0, 3).map(t => (
-            <span key={t} className="tag">{t}</span>
-          ))}
-        </div>
-        <p className={styles.desc}>{plant.desc.slice(0, 88)}…</p>
-        <div className={styles.footer}>
-          <span className={styles.rating}>
-            {'★'.repeat(plant.rating)}{'☆'.repeat(5 - plant.rating)}
-          </span>
-          <span className={styles.learnMore}>View details →</span>
-        </div>
-      </div>
-    </div>
+      {isModalOpen && (
+        <PlantModal 
+          plant={plant} 
+          onClose={toggleModal} 
+        />
+      )}
+    </>
   );
-}
+};
+
+export default PlantCard;

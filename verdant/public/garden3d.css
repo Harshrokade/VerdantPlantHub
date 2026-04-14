@@ -1,0 +1,227 @@
+/* ===== 🌿 PLANT INFO PANEL (MAIN CARD) ===== */
+.plant-info-panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+
+    width: 96%;
+    max-width: 1000px;   /* 🔥 Increased size */
+    max-height: 94vh;
+    overflow-y: auto;
+
+    background: linear-gradient(135deg, #ffffff, #f4fff6);
+    border-radius: 22px;
+
+    box-shadow: 
+        0 25px 70px rgba(0,0,0,0.3),
+        inset 0 0 0 1px rgba(255,255,255,0.3);
+
+    border: 1px solid rgba(76,175,80,0.2);
+
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.35s ease;
+    backdrop-filter: blur(10px);
+}
+
+.plant-info-panel.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+
+/* ===== 🌿 HEADER ===== */
+.info-header {
+    padding: 26px 28px;
+
+    background: linear-gradient(135deg, #4CAF50, #1b5e20);
+    color: white;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    border-radius: 22px 22px 0 0;
+}
+
+.info-header h2 {
+    margin: 0;
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+
+/* ===== ❌ CLOSE BUTTON ===== */
+.close-btn {
+    font-size: 24px;
+    color: white;
+    background: rgba(255,255,255,0.2);
+    border: none;
+    border-radius: 50%;
+
+    padding: 8px 14px;
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+    background: #ff4d4d;
+    transform: rotate(90deg) scale(1.1);
+}
+
+
+/* ===== 📦 CONTENT ===== */
+.info-content {
+    padding: 28px;
+}
+
+
+/* ===== 🖼️ IMAGE ===== */
+.plant-image-container {
+    width: 100%;
+    height: 380px;   /* 🔥 Bigger image */
+    border-radius: 18px;
+    overflow: hidden;
+    margin-bottom: 25px;
+
+    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+}
+
+.plant-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    transition: transform 0.5s ease;
+}
+
+.plant-image:hover {
+    transform: scale(1.1);
+}
+
+
+/* ===== 📖 DESCRIPTION ===== */
+.plant-description {
+    font-size: 17px;
+    color: #444;
+    line-height: 1.8;
+    margin-bottom: 30px;
+}
+
+
+/* ===== 🌞 CARE INFO ===== */
+.plant-care-info {
+    background: linear-gradient(135deg, #f0fff4, #ffffff);
+    padding: 24px;
+    border-radius: 18px;
+
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    margin-bottom: 25px;
+}
+
+.plant-care-info h3 {
+    margin-bottom: 18px;
+    font-size: 20px;
+    color: #2c3e50;
+}
+
+.plant-care-info ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+}
+
+.plant-care-info li {
+    background: white;
+    padding: 14px;
+    border-radius: 12px;
+
+    display: flex;
+    gap: 8px;
+
+    transition: all 0.3s ease;
+}
+
+.plant-care-info li:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+.plant-care-info li strong {
+    color: #4CAF50;
+}
+
+
+/* ===== 💊 MEDICINAL USES ===== */
+.medicinal-uses {
+    margin-top: 20px;
+    padding: 24px;
+
+    background: linear-gradient(135deg, #f8fff9, #ffffff);
+    border-radius: 18px;
+
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+.medicinal-uses h3 {
+    margin-bottom: 16px;
+    font-size: 20px;
+    color: #2c3e50;
+}
+
+.medicinal-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 14px;
+}
+
+.medicinal-list li {
+    padding: 14px 18px;
+
+    background: linear-gradient(135deg, #ffffff, #f3fff5);
+    border-radius: 14px;
+
+    border-left: 5px solid #4CAF50;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    transition: all 0.3s ease;
+}
+
+.medicinal-list li:hover {
+    transform: scale(1.04);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+
+
+/* ===== 🌟 SCROLLBAR (PREMIUM TOUCH) ===== */
+.plant-info-panel::-webkit-scrollbar {
+    width: 8px;
+}
+
+.plant-info-panel::-webkit-scrollbar-thumb {
+    background: #4CAF50;
+    border-radius: 10px;
+}
+
+
+/* ===== 📱 RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .plant-info-panel {
+        max-width: 95%;
+    }
+
+    .plant-image-container {
+        height: 250px;
+    }
+
+    .info-header h2 {
+        font-size: 22px;
+    }
+}
